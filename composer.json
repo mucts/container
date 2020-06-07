@@ -1,0 +1,25 @@
+{
+    "name": "mucts/container",
+    "description": "container",
+    "type": "library",
+    "require": {
+        "php": "^7.4",
+        "psr/container": "^1.0",
+        "mucts/support": ">=2.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.2"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "herry",
+            "email": "yuandeng@aliyun.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "MuCTS\\Container\\": "src/"
+        }
+    }
+}
