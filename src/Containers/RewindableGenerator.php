@@ -14,6 +14,7 @@ namespace MuCTS\Container\Containers;
 
 
 use Countable;
+use InvalidArgumentException;
 use IteratorAggregate;
 
 class RewindableGenerator implements Countable, IteratorAggregate
@@ -63,9 +64,12 @@ class RewindableGenerator implements Countable, IteratorAggregate
     public function count()
     {
         if (is_callable($count = $this->count)) {
-            $this->count = $count();
+            $count = $count();
+            if (!is_int($count)) {
+                throw new InvalidArgumentException(sprintf('%s is not valid data.', $count));
+            }
+            $this->count = $count;
         }
-
         return $this->count;
     }
 }

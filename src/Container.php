@@ -342,7 +342,7 @@ class Container implements ArrayAccess, ContainerContract
      *
      * @param string $concrete
      * @param string $abstract
-     * @param Closure|string $implementation
+     * @param Closure|string|array $implementation
      * @return void
      */
     public function addContextualBinding($concrete, $abstract, $implementation)
@@ -798,7 +798,7 @@ class Container implements ArrayAccess, ContainerContract
      * Find the concrete binding for the given abstract in the contextual binding array.
      *
      * @param string $abstract
-     * @return Closure|string|null
+     * @return Closure|string|null|array
      */
     protected function findInContextualBindings($abstract)
     {
@@ -908,7 +908,7 @@ class Container implements ArrayAccess, ContainerContract
                 : $this->resolveClass($dependency);
 
             if ($dependency->isVariadic()) {
-                $results = array_merge($results, $result);
+                $results = array_merge($results, Util::arrayWrap($result));
             } else {
                 $results[] = $result;
             }
