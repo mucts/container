@@ -63,13 +63,14 @@ class RewindableGenerator implements Countable, IteratorAggregate
      */
     public function count()
     {
-        if (is_callable($count = $this->count)) {
+        $count = $this->count;
+        if (is_callable($count)) {
             $count = $count();
             if (!is_int($count)) {
                 throw new InvalidArgumentException(sprintf('%s is not valid data.', $count));
             }
             $this->count = $count;
         }
-        return $this->count;
+        return $count;
     }
 }

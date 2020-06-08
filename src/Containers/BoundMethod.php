@@ -39,8 +39,12 @@ class BoundMethod
      */
     public static function call($container, $callback, array $parameters = [], $defaultMethod = null)
     {
-        if (static::isCallableWithAtSign($callback) || is_string($callback) && $defaultMethod) {
+        if (is_string($callback) && (static::isCallableWithAtSign($callback) || $defaultMethod)) {
             return static::callClass($container, $callback, $parameters, $defaultMethod);
+        }
+
+        if (is_string($callback)) {
+            throw new InvalidArgumentException(sprintf('%s is not valid callback param.', $callback));
         }
 
         return static::callBoundMethod($container, $callback, function () use ($container, $callback, $parameters) {
